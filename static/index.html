@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="utf-8">
+	<title>Formulario para captaci&oacute;n &middot; La costa Destinations</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="MaG">
+
+	<!-- CSS -->
+	<link href="css/bootstrap.css" rel="stylesheet"/>
+	<link href="css/datepicker.css" rel="stylesheet"/>
+	<link href="js/google-code-prettify/prettify.css" rel="stylesheet"/>
+	<link href="css/hopscotch.css" rel="stylesheet"/>
+
+	<style type="text/css">
+		html,
+		body {
+			height: 100%;
+			/* The html and body elements cannot have any padding or margin. */
+		}
+
+		#wrap {
+			min-height: 100%;
+			height: auto !important;
+			height: 100%;
+			/* Negative indent footer by it's height */
+			margin: 0 auto -60px;
+		}
+
+		#push,
+		#footer {
+			height: 60px;
+		}
+		#footer {
+			background-color: #f5f5f5;
+		}
+
+		/* Lastly, apply responsive CSS fixes as necessary */
+		@media (max-width: 767px) {
+			#footer {
+			margin-left: -20px;
+			margin-right: -20px;
+			padding-left: 20px;
+			padding-right: 20px;
+			}
+		}
+
+
+
+		/* Custom page CSS
+		-------------------------------------------------- */
+
+		.container {
+			width: auto;
+			max-width: 680px;
+		}
+		.container .credit {
+			margin: 20px 0;
+		}
+
+		.tooltip-class {
+		}
+	</style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+	<link rel="shortcut icon" href="ico/favicon.png">
+  </head>
+
+  <body>
+	<div id="wrap">
+
+		<!-- Begin page content -->
+		<div class="container">
+		<div class="page-header">
+			<div class="row text-center">
+				<img id="step0" src="img/la-costa-logo.jpg"/>
+			</div>
+		</div>
+
+		<form onsubmit="return validate_form();" action="/form" method="post" enctype="multipart/form-data">
+			<p id="step1" style="font-weight:bold">
+				&iquest;Qu&eacute; tipo de propiedad desea vender?
+			</p>
+
+			<label class="radio inline">
+				<input type="radio" name="tipo" onclick="handle_radio('#proyecto');" value="project"/>Proyecto
+			</label>
+			<label class="radio inline">
+				<input type="radio" name="tipo" onclick="handle_radio('#villa-apto');" value="apartment"/>Villa
+			</label>
+			<label class="radio inline">
+				<input type="radio" name="tipo" onclick="handle_radio(null);" value="duplx"/>DUPLX
+			</label>
+			<label class="radio inline">
+				<input type="radio" name="tipo" onclick="handle_radio('#villa-apto');" value="apartment"/>Apto
+			</label>
+			<label class="radio inline">
+				<input type="radio" name="tipo" onclick="handle_radio('#comercial');" value="comercial"/>Comercial
+			</label>
+			<label class="radio inline">
+				<input type="radio" name="tipo" onclick="handle_radio('#solar');" value="land"/>Solar
+			</label>
+			<p id="step2" style="margin-top:10px;font-weight:bold">
+				&iquest;Posee alguna foto actual de la propiedad?
+			</p>
+			<input type="file" name="file[]" multiple="" value="Agregar">
+
+			<div class="page-header">
+				<h3>Destinos</h3>
+			</div>
+			
+			<select id="step3" name="place">
+				<option>Elegir Destino</option>
+				<option>La Romana</option>
+				<option>Juan Dolio</option>
+				<option>Bayahibe</option>
+				<option>R&iacute;o San Ju&aacute;n</option>
+				<option>Bavaro</option>
+				<option>Punta Cana</option>
+				<option>Cabarete</option>
+				<option>Cortecito &amp; Corales</option>
+				<option>Casa de Campo</option>
+				<option>Jarabacoa</option>
+				<option>Cabrera</option>
+				<option>Barahona</option>
+				<option>Saman&aacute;</option>
+				<option>Sosua</option>
+				<option>Otros</option>
+			</select>
+
+			<br/>
+
+			<input class="tooltip-class" data-toggle="tooltip" title="Coloque aqui el precio del inmueble." name="price" type="text" placeholder="Entre el precio"/> 
+
+			<!-- MaG: class span1 it's too little and span2 too big -->
+			<select id="step4" name="currency" style="width: 90px;">
+				<option>Moneda</option>
+				<option>US$</option>
+				<option>RD$</option>
+			</select>
+
+			<br/>
+
+			<div id="step5">
+				<input name="address" type="text" placeholder="Direcci&oacute;n" class="span6"/><br/>
+				<input name="parcel" type="text" placeholder="N&ordm; de parcela"/>
+				<input name="title" type="text" placeholder="N&ordm; de t&iacute;tulo"/>
+				<input name="district" type="text" placeholder="Dist. Catastral"/>
+				<input name="date" type="text" placeholder="Fecha de inscripci&oacute;n (dd-mm-yy))" id="dp1"/><br/>
+				<textarea id="step6" name="note1" class="span4" rows="3" placeholder="Notas"></textarea>
+			</div>
+
+			<div id="step7" class="page-header">
+				<h3>Zonificaci&oacute;n</h3>
+			</div>
+
+			<label class="radio inline">
+				<input type="radio" name="zone" value="Touristic"/>Turistica
+			</label>
+			<label class="radio inline">
+				<input type="radio" name="zone" value="Residential"/>Residencial
+			</label>
+			<label class="radio inline">
+				<input type="radio" name="zone" value="Comercial"/>Comercial
+			</label>
+			<label class="radio inline">
+				<input type="radio" name="zone" value="Industrial"/>Industrial
+			</label>
+			<label class="radio inline">
+				<input type="radio" name="zone" value="Business"/>Negocio
+			</label>
+			<label class="radio inline">
+				<input type="radio" name="zone" value="Profesional"/>Profesional
+			</label>
+			<label class="radio inline">
+				<input type="radio" name="zone" value="Agr&iacute;cola"/>Agr&iacute;cola
+			</label>
+
+			<!-- MaG: margin-top, used to separate things just a little -->
+			<input name="maintenance" type="text" placeholder="Mantenimiento" class="span2" style="margin-top: 19px;"/><br/>
+
+			<!-- NOTE: START OF HIDDEN ELEMENTS -->
+			<div>
+				<div class="hide" id="proyecto">
+					<div class="page-header">
+						<h3>Proyecto</h3>
+					</div>
+
+					<input name="project_name" type="text" placeholder="Nombre"/>
+					<input name="project_ing" type="text" placeholder="Ingeniero"/>
+					<input name="project_unids" type="text" placeholder="Unidades"/>
+					<input name="project_const" type="text" placeholder="Constructora"/>
+					<input name="project_area" type="text" placeholder="&Aacute;rea (m&#178;)"/><br/>
+					<textarea name="project_properties" rows="2" placeholder="Caracter&iacute;sticas" class="span4"></textarea><br/>
+					<textarea name="project_notes" rows="2" placeholder="Notas" class="span4"></textarea>
+				</div>
+
+				<div class="hide" id="solar">
+					<div class="page-header">
+						<h3>Solar</h3>
+					</div>
+
+					<input name="land_area" type="text" placeholder="&Aacute;rea (m&#178;) solar"/>
+					<input name="land_density" type="text" placeholder="Densidad"/>
+					<input name="land_edification" type="text" placeholder="Edificaci&oacute;n"/>
+					<input name="land_front_area" type="text" placeholder="&Aacute;rea (m&#178;) frente"/>
+					<input name="land_bottom_area" type="text" placeholder="&Aacute;rea (m&#178;) fondo"/>
+					<input name="land_energy" type="text" placeholder="Energ&iacute;a"/>
+					<input name="land_aqueduct" type="text" placeholder="Acueducto"/><br/>
+					<textarea name="land_notes" rows="3" placeholder="Notas" class="span4"></textarea>
+				</div>
+
+				<div class="hide" id="villa-apto">
+					<div class="page-header">
+						<h3>Villa / Apto</h3>
+					</div>
+
+					<input name="apto_const_area" type="text" placeholder="&Aacute;rea (m&#178;) construcci&oacute;n"/>
+					<input name="apto_land_area" type="text" placeholder="&Aacute;rea (m&#178;) solar">
+					<input name="apto_rooms" type="text" placeholder="Habitaciones"/>
+					<input name="apto_levels" type="text" placeholder="Niveles"/>
+					<input name="apto_level" type="text" placeholder="Planta"/>
+					<input name="apto_bath_rooms" type="text" placeholder="Ba&ntilde;os"/>
+
+					<label class="checkbox inline">
+						<input name="service" type="checkbox" value="Si"/>Habitaci&oacute;n de servicio
+					</label>
+					<label class="checkbox inline">
+						<input name="furnished" type="checkbox" value="Si"/>Amueblado(a)
+					</label>
+					<label class="checkbox">
+						<input name="pool" type="checkbox" value="Si"/>Piscina
+					</label>
+
+					<div style="margin-left: 40px;"> <!-- Indent a little -->
+						<input name="pool_area" type="text" placeholder="m&#178; piscina" style="margin-right: 20px;width: 80px;"/>
+
+						<label class="radio inline">
+							<input name="pool_owner" type="radio" name="piscinaRadio" value="Privada"/>Privada
+						</label>
+						<label class="radio inline">
+							<input name="pool_owner" type="radio" name="piscinaRadio" value="Comun"/>Com&uacute;n
+						</label>
+					</div>
+
+					<h4>L&iacute;nea blanca</h4>
+					<div class="row">
+						<label class="checkbox span2">
+							<input name="stove" type="checkbox" value="Estufa Gas"/>Estufa gas
+						</label>
+						<label class="checkbox span2">
+							<input name="stove_vitro" type="checkbox" value="Estufa Vitro"/>Estufa vitro
+						</label>
+						<label class="checkbox span2">
+							<input name="oven" type="checkbox" value="Horno"/>Horno
+						</label>
+						<label class="checkbox span2">
+							<input name="fridge" type="checkbox" value="Nevera"/>Nevera
+						</label>
+						<label class="checkbox span2">
+							<input name="internet" type="checkbox" value="Internet"/>Internet
+						</label>
+						<label class="checkbox span2">
+							<input name="tv-cable" type="checkbox" value="TV-Cable"/>TV-Cable
+						</label>
+						<label class="checkbox span2">
+							<input name="satellite" type="checkbox" value="Satelite"/>Satelite
+						</label>
+						<label class="checkbox span2">
+							<input name="washer" type="checkbox" value="Lavadora"/>Lavadora
+						</label>
+						<label class="checkbox span2">
+							<input name="dryer" type="checkbox" value="Secadora"/>Secadora
+						</label>
+						<label class="checkbox span2">
+							<input name="dishwasher" type="checkbox" value="Lavaplatos"/>Lavaplatos
+						</label>
+					</div>
+
+					<textarea name="note2" rows="2" placeholder="Notas" class="span4"></textarea>
+				</div> <!-- end villa-apto -->
+
+				<div class="hide" id="comercial">
+					<div class="page-header">
+						<h3>Comercial</h3>
+					</div>
+
+					<input name="comercial_area" type="text" placeholder="&Aacute;rea (m&#178;) construcci&oacute;n"/>
+					<input name="comercial_level" type="text" placeholder="Planta"/>
+					<input name="comercial_levels" type="text" placeholder="Niveles"/>
+					<input name="comercial_restrictions" type="text" placeholder="Restricciones"/>
+					<input name="comercial_dest" type="text" placeholder="Destino negocio"/>
+					<input name="comercial_properties" type="text" placeholder="Caracter&iacute;sticas" class="span6"/>
+					<textarea name="comercial_notes" rows="2" placeholder="Notas" class="span4"></textarea>
+				</div>
+			</div>  <!-- hidden elements -->
+
+			<!-- NOTE: END OF HIDDEN ELEMENTS -->
+
+			<div id="step8" class="page-header">
+				<h3>Contactos</h3>
+			</div>
+
+			<div class="row">
+				<div id="step9" class="span3">
+					<h4>Propietario 1</h4>
+					<input name="owner1" type="text" placeholder="Nombre">
+					<input name="owner1_id" type="text" placeholder="C&eacute;dula">
+					<input name="owner1_phone" type="text" placeholder="Tel&eacute;fono">
+					<input name="owner1_mail" type="email" placeholder="Email">
+					<input name="owner1_address" type="text" placeholder="Domicilio">
+				</div>
+
+				<div class="span3">
+					<h4>Propietario 2</h4>
+					<input name="owner2" type="text" placeholder="Nombre">
+					<input name="owner2_id" type="text" placeholder="C&eacute;dula">
+					<input name="owner2_phone" type="text" placeholder="Tel&eacute;fono">
+					<input name="owner2_mail" type="email" placeholder="Email">
+					<input name="owner2_address" type="text" placeholder="Domicilio">
+				</div>
+
+				<div class="span3">
+					<h4>Referidor</h4>
+					<input name="referrer" type="text" placeholder="Nombre">
+					<input name="referrer_id" type="text" placeholder="C&eacute;dula">
+					<input name="referrer_phone" type="text" placeholder="Tel&eacute;fono">
+					<input name="referrer_mail" type="email" placeholder="Email">
+				</div>
+
+				<div id="step10" class="span3">
+					<h4>Llaves</h4>
+					<input name="keys_holder" type="text" placeholder="Nombre">
+					<input name="keys_phone" type="text" placeholder="Tel&eacute;fono">
+					<input name="keys_mail" type="email" placeholder="Email">
+				</div>
+
+				<div class="span7">
+					<h4>Ejecutivo de ventas</h4>
+					<input name="executive" type="text" placeholder="Nombre"><br/>
+					<input name="executive_id" type="text" placeholder="C&eacute;dula">
+				</div>
+
+				<div class="span8">
+					<h4>Comisi&oacute;n y forma de pago</h4>
+					
+					<input name="percentage" type="text" placeholder="Porcentaje" style="margin-right: 20px;">
+					<label class="radio inline">
+						<input type="radio" name="comision" id="optionsComision1" value="inmediata">Inmediata
+					</label>
+					<label class="radio inline">
+						<input type="radio" name="comision" id="optionsComision" value="noInmediata">En proceso de construcci&oacute;n
+					</label>
+				</div>
+
+			</div>
+			<br/>
+
+			<button id="step11" type="submit" class="btn btn-large btn-primary pull-right" type="button">
+				Obtener PDF
+			</button>
+		</form>
+
+		</div> <!-- container -->
+		<div id="push"></div>
+	</div>
+
+    <!-- Le javascript
+    ================================================== -->
+
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap-button.js"></script>
+	<script src="js/bootstrap-tooltip.js"></script>
+	<script src="js/hopscotch-0.1.min.js"></script>
+	<script src="js/tour.js"></script>
+
+	<!-- MaG: Awesome Date Picker -->
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/google-code-prettify/prettify.js"></script>
+
+       <!-- MaG: Custom JS :\ -->
+
+	<script src="js/validate_form.js"></script>
+	<script>
+		var previous_id = null; /* NOTE: Global variable */
+
+		function handle_radio(id_name) {
+			if(previous_id) {
+				previous_id.addClass('hide');
+				previous_id.removeClass('show');
+			}
+
+			if(id_name) {
+				var id = $(id_name);
+				previous_id = id;
+				id.addClass('show');
+			}
+		}
+	</script>
+
+<!--	<script type="text/javascript">
+		$(function () {
+			$('.tooltip-class').tooltip({animation: true, placement: 'left'});
+		});
+	</script>-->
+
+	<script>
+
+		$(function(){
+			window.prettyPrint && prettyPrint();
+			$('#dp1').datepicker({
+				format: 'dd-mm-yyyy'
+			});
+		});
+	</script>
+
+  </body>
+</html>
