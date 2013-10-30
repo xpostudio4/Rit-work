@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-# by MaG
 import os
 import time
 from flask import Flask, redirect, request, url_for, abort
